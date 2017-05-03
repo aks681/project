@@ -19,4 +19,8 @@ var user=this;
 
 });
 
+userSchema.methods.comparePassword=function(password){
+  return bcrypt.compareSync(password,this.password);
+};
+
  module.exports = mongoose.model('User',userSchema);

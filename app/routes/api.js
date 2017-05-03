@@ -8,27 +8,48 @@ module.exports = function(router){
   user.email = req.body.email;
   user.role=req.body.role;
   if(req.body.username==null||req.body.username==''){
-    res.send("Username field is empty");
+    res.json({success: false,message:"Username field is empty"});
   }
 else if(req.body.password==null||req.body.password==''){
-  res.send("Password field is empty");
+  res.json({success: false,message:"Password field is empty"});
 }
 else if(req.body.email==null||req.body.email==''){
-  res.send("Email field is empty");
-}
-else if(req.body.role==null||req.body.role==''){
-  res.send("You have not specified a role");
+  res.json({success: false,message:"Email field is empty"});
 }
   else{
   user.save(function(err){
     if(err){
-    res.send('username or email already exists');
+    res.json({success: false,message:"Username or email already exists"});
   }
     else {
-      res.send('User Created!')
+      res.json({success: true,message:"You Are Now Registered"});
     }
   });
 }
+});
+//User LOgin
+router.post('/authenticate',function(req,res){
+  User.findOne({username: req.body.username}).select('email username password role').exec(function(err,user){
+    if(err)
+     throw err;
+     if(!user){
+       res.json({success: false, message: "Could Not Authenticate User"});
+     } else if(user)
+     {
+       if(req.body.password){
+       var validPassword = user.comparePassword(req.body.password);
+       if(!validPassword){
+         res.json({success: false, message :"Password Incorrect"});
+       }
+       else{
+         res.json({success: true, message: "Successfully Logged In"});
+       }
+     }
+     else {
+       res.json({success: false, message :"No Password provided"});
+     }
+     }
+  });
 });
   return router;
 }
