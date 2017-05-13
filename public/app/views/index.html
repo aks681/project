@@ -22,11 +22,11 @@
     <script src="app/services/userServices.js"></script>
 
 
-    <title>Login Page</title>
+    <title>Web page</title>
 
   </head>
 
-  <body ng-controller="mainCtrl as main">
+  <body ng-controller="mainCtrl as main" ng-show="main.loadme" ng-cloak>
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -42,9 +42,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+            <li class="active"><a href="/" ng-hide="main.isLoggedIn">Home</a></li>
+            <li><a ng-show="main.isLoggedIn&&main.role" href='/managerprofile'>Hello {{main.username}}</a></li>
+            <li><a ng-show="main.isLoggedIn&&!main.role" href='/studentprofile'>Hello {{main.username}}</a></li>
+            <li><a href="/login" ng-hide="main.isLoggedIn">Login</a></li>
+            <li><a href="/register" ng-hide="main.isLoggedIn">Register</a></li>
+            <li><a href="#" ng-show="main.isLoggedIn" ng-click="main.logout();">Logout</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -54,7 +57,7 @@
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Nav header</li>
                 <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a href="#">Link</a></li>
               </ul>
             </li>
           </ul>

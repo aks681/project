@@ -1,4 +1,6 @@
 var User=require('../models/user');
+var jwt=require('jsonwebtoken');
+var secret = 'awesome';
 //router= export all accessing done to server
 module.exports = function(router){
  router.post('/users',function(req,res){
@@ -42,7 +44,8 @@ router.post('/authenticate',function(req,res){
          res.json({success: false, message :"Password Incorrect"});
        }
        else{
-         res.json({success: true, message: "Successfully Logged In"});
+         var token = jwt.sign({username: user.username, email: user.email},secret,{expiresIn:'24h'});
+         res.json({success: true, message: "Successfully Logged In", token: token, role: user.role});
        }
      }
      else {
@@ -50,6 +53,29 @@ router.post('/authenticate',function(req,res){
      }
      }
   });
+});
+//express middleware
+router.use(function(req,res,next){
+  var token=req.body.token||req.body.query||req.headers['x-access-token'];
+  if(token)
+  {
+    jwt.verify(token,secret,function(err,decoded){
+      if(err)
+      {
+        res.json({success: false, message: "User Session Expired Invalid token"});
+      }
+      else {
+        req.decoded= decoded;
+        next();
+      }
+    });
+  }
+  else{
+    res.json({success: false, message: "No User Available"});
+  }
+});
+router.post('/current',function(req,res){
+  res.send(req.decoded);
 });
   return router;
 }
