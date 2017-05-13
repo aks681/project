@@ -8,11 +8,15 @@ module.exports = function(router){
   user.username = req.body.username;
   user.password = req.body.password;
   user.email = req.body.email;
+  user.name = req.body.name;
   user.role=req.body.role;
   if(req.body.username==null||req.body.username==''){
     res.json({success: false,message:"Username field is empty"});
   }
 else if(req.body.password==null||req.body.password==''){
+  res.json({success: false,message:"Password field is empty"});
+}
+else if(req.body.name==null||req.body.name==''){
   res.json({success: false,message:"Password field is empty"});
 }
 else if(req.body.email==null||req.body.email==''){
@@ -21,7 +25,21 @@ else if(req.body.email==null||req.body.email==''){
   else{
   user.save(function(err){
     if(err){
+    if(err.code === 11000){
     res.json({success: false,message:"Username or email already exists"});
+     }
+     else if(err.errors.email){
+       res.json({success: false, message: err.errors.email.message});
+     }
+     else if(err.errors.name){
+       res.json({success: false, message: err.errors.name.message});
+     }
+     else if(err.errors.username){
+       res.json({success: false, message: err.errors.username.message});
+     }
+     else if(err.errors.password){
+       res.json({success: false, message: err.errors.password.message});
+     }
   }
     else {
       res.json({success: true,message:"You Are Now Registered"});
