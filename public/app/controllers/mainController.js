@@ -1,5 +1,5 @@
-angular.module('mainController',['authServices'])
-.controller('mainCtrl',function(Auth,$timeout,$location,$rootScope){
+angular.module('mainController',['authServices','userServices'])
+.controller('mainCtrl',function(Auth,$timeout,$location,$rootScope,User){
   var app=this;
 app.loadme=false;
   $rootScope.$on('$routeChangeStart',function(){
@@ -9,7 +9,19 @@ app.loadme=false;
       Auth.getUser().then(function(data){
         app.username=data.data.username;
         app.email=data.data.email;
-        app.loadme=true;
+       app.authorized=false;
+       app.user=false;
+        User.getPermission().then(function(data){
+          if(data.data.permission === 'admin'){
+            app.authorized = true;
+            app.loadme = true;
+          }
+          else{
+            app.loadme= true;
+            app.user=true;
+          }
+        });
+
       });
     }
     else{
@@ -23,21 +35,17 @@ app.loadme=false;
      app.loading=true;
      app.errorMsg=false;
      Auth.login(app.loginData).then(function(data){
-      app.role=data.data.role;
        if(data.data.success)
        {
+         app.role=data.data.role;
          app.loading=false;
          app.successMsg=data.data.message + '...redirecting to profile page';
 
          $timeout(function(){
-           if(data.data.role)
-         $location.path('/managerprofile');
-         else {
-           $location.path('/studentprofile');
-         }
+           $location.path('/profile');
          app.loginData=null;
          app.successMsg=false;
-         },2000);
+       },1000);
 
        }
        else {
@@ -52,6 +60,6 @@ this.logout=function(){
   $location.path('/logout');
   $timeout(function(){
     $location.path('/home');
-  },2000);
+  },1000);
 };
 });

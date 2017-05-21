@@ -5,7 +5,9 @@ angular.module("userControllers",['userServices'])
      app.loading=true;
      app.errorMsg=false;
      if(this.regData.role==null)
-      this.regData.role=false;
+      {
+         this.regData.role=false;
+     }
      User.create(app.regData).then(function(data){
        if(data.data.success)
        {

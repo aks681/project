@@ -1,0 +1,30 @@
+<div ng-show="list.users.length>0">
+<div class="page-header">
+  <h1>Applicants who have applied for {{ list.name }}</h1>
+</div>
+<div class="row show-hide-message" ng-show="list.error">
+  <div class="alert alert-danger"> {{list.error}} </div>
+</div>
+<table class="table table-hover">
+  <thead class="thead-default">
+  <tr>
+    <th> Username</th>
+    <th> Name </th>
+    <th> Action to perform </th>
+  </tr>
+  </thead>
+  <tbody>
+<tr ng-repeat="user in list.users">
+  <td>{{ user[0].username }}</td>
+  <td>{{ user[0].name }}</td>
+  <td>
+      <button type="button" class="btn btn-success" ng-click="list.approveuser(user[0].username,user[0].name);"> Approve </button>
+      <button type="button" class="btn btn-danger" ng-click="list.rejectuser(user[0].username);"> Reject </button>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div ng-hide="list.users.length>0">
+  <h2>No applicants have applied for this post yet</h2>
+</div>

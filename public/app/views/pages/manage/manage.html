@@ -1,0 +1,50 @@
+<div class="page-header">
+  <h1>Post Management</h1>
+</div>
+
+<br>
+<div class="jumbotron text-center" ng-show="manage.loading">
+  <span class "glyphicon glyphicon-repeat spinner"></span>
+  <p>Loading...</p>
+</div>
+
+<a href="/addpost"><button type="button" class="btn btn-primary">Add Post</button></a>
+
+<br><br>
+<div class="row show-hide-message" ng-show="manage.error">
+  <div class="alert alert-danger"> {{manage.error}} </div>
+</div>
+<br>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <strong>Post Management</strong>
+  </div>
+  <table class="table table-hover">
+    <thead class="thead-default">
+    <tr>
+      <th> Name of Post</th>
+      <th> Available Vacancies </th>
+      <th> Qualification required </th>
+      <th> Experience required </th>
+      <th> Post Description </th>
+    </tr>
+    </thead>
+    <tbody>
+  <tr ng-repeat="post in manage.posts">
+    <td><a href="/list/{{ post._id }}">{{ post.postname }}</a></td>
+    <td>{{ post.limit }}</td>
+    <td>{{ post.qualification }}</td>
+    <td>{{ post.experience }}</td>
+    <td>{{ post.description }}</td>
+    <td>
+      <a href="/edit/{{ post._id }}">
+        <button type="button" class="btn btn-primary"> Edit </button>
+      </a>
+        <button type="button" class="btn btn-danger" ng-click="manage.deletePost(post._id);"> Delete </button>
+    </td>
+  </tr>
+</tbody>
+  </table>
+</div>
+<!--  <div class="alert alert-success"> {{manage.successMsg}} </div>
+</div>-->

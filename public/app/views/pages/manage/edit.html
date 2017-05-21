@@ -1,0 +1,94 @@
+<div class="page-header">
+  <h1>Edit Post</h1>
+</div>
+
+<br>
+
+<ul class="nav nav-tabs">
+  <li role="presentation" ng-click="edit.namePhase();" ng-class="nameTab"><a href='#'>Name</a></li>
+  <li role="presentation" ng-click="edit.limitPhase();" ng-class="limitTab"><a href='#'>Limit</a></li>
+  <li role="presentation" ng-click="edit.qualificationPhase();" ng-class="qualificationTab"><a href='#'>Qualification</a></li>
+  <li role="presentation" ng-click="edit.experiencePhase();" ng-class="experienceTab"><a href='#'>Experience</a></li>
+  <li role="presentation" ng-click="edit.descriptionPhase();" ng-class="descriptionTab"><a href='#'>Description</a></li>
+</ul>
+<br><br>
+
+<div ng-show="edit.phase1">
+<form name="edit.nameForm" ng-submit="edit.updateName(newName);" novalidate>
+  <label> Name: </label>
+  <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="Enter Name (First and Last)" ng-model="newName">
+<br><br>
+<button ng-disabled="edit.disabled" class="btn btn-primary" type="submit"> Update </button>
+</form>
+<br>
+<div class="row show-hide-message" ng-show="edit.nameerror">
+<div class="alert alert-danger"> {{edit.nameerror}} </div>
+</div>
+<div class="row show-hide-message" ng-show="edit.namesuccess">
+<div class="alert alert-success"> {{edit.namesuccess}} </div>
+</div>
+</div>
+
+<div ng-show="edit.phase2">
+<form name="edit.limitForm" ng-submit="edit.updateLimit(newLimit);" novalidate>
+  <label> Limit: </label>
+  <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="Limit" ng-model="newLimit">
+<br><br>
+<button ng-disabled="edit.disabled" class="btn btn-primary" type="submit"> Update </button>
+</form>
+<br>
+<div class="row show-hide-message" ng-show="edit.limiterror">
+<div class="alert alert-danger"> {{edit.limiterror}} </div>
+</div>
+<div class="row show-hide-message" ng-show="edit.limitsuccess">
+<div class="alert alert-success"> {{edit.limitsuccess}} </div>
+</div>
+</div>
+
+<div ng-show="edit.phase3">
+  <form name="edit.qualificationForm" ng-submit="edit.updateQualification(newQualification);" novalidate>
+  <label> Qualification: </label>
+  <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="Enter Qualification" ng-model="newQualification">
+<br><br>
+<button ng-disabled="edit.disabled" class="btn btn-primary" type="submit"> Update </button>
+</form>
+<br>
+  <div class="row show-hide-message" ng-show="edit.qualificationerror">
+  <div class="alert alert-danger"> {{edit.qualificationerror}} </div>
+</div>
+<div class="row show-hide-message" ng-show="edit.qualificationsuccess">
+<div class="alert alert-success"> {{edit.qualificationsuccess}} </div>
+</div>
+</div>
+
+<div ng-show="edit.phase4">
+<form name="edit.experienceForm" ng-submit="edit.updateExperience(newExperience);" novalidate>
+  <label> Experience: </label>
+  <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="Enter Experience" ng-model="newExperience">
+<br><br>
+<button ng-disabled="edit.disabled" class="btn btn-primary" type="submit"> Update </button>
+</form>
+<br>
+<div class="row show-hide-message" ng-show="edit.experiencerror">
+<div class="alert alert-danger"> {{edit.experiencerror}} </div>
+</div>
+<div class="row show-hide-message" ng-show="edit.experiencesuccess">
+<div class="alert alert-success"> {{edit.experiencesuccess}} </div>
+</div>
+</div>
+
+<div ng-show="edit.phase5">
+<form name="edit.descriptionForm" ng-submit="edit.updateDescription(newDescription);" novalidate>
+  <label> Description: </label>
+  <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="Enter Description" ng-model="newDescription">
+<br><br>
+<button ng-disabled="edit.disabled" class="btn btn-primary" type="submit"> Update </button>
+</form>
+<br>
+<div class="row show-hide-message" ng-show="edit.descriptionerror">
+<div class="alert alert-danger"> {{edit.descriptionerror}} </div>
+</div>
+<div class="row show-hide-message" ng-show="edit.descriptionsuccess">
+<div class="alert alert-success"> {{edit.descriptionsuccess}} </div>
+</div>
+</div>

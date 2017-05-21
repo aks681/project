@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>Enter Details of new post </h1>
+</div>
+<form ng-Submit="manage.addPost(post)">
+  <label> Name of Post: </label>
+  <input class="form-control" type='text' name='postname' placeholder="Enter Post Name" ng-model="manage.post.postname">
+  <br>
+  <label> Limit: </label>
+  <input class="form-control" type='text' name='limit' placeholder="Enter the limit of applicants in the post" ng-model="manage.post.limit">
+  <br>
+  <label> Experience: </label>
+  <input class="form-control" type='text' name='experience' placeholder="Enter Experience required for post (specify length in years)" ng-model="manage.post.experience">
+  <br>
+  <label> Qualification: </label>
+  <input class="form-control" type='text' name='qualification' placeholder="Enter Qualification required for post" ng-model="manage.post.qualification">
+  <br>
+  <label> Description: </label>
+  <input class="form-control" type='text' name='description' placeholder="Enter any additional description" ng-model="manage.post.description">
+  <br>
+  <button class="btn btn-primary" type='submit'> Add </button>
+
+</form>
+<br>
+<div class="jumbotron text-center" ng-show="manage.loading">
+  <span class "glyphicon glyphicon-repeat spinner"></span>
+  <p>Loading...</p>
+</div>
+<div class="row show-hide-message" ng-show="manage.successMsg">
+  <div class="alert alert-success"> {{manage.successMsg}} </div>
+</div>
+<br>
+<div class="row show-hide-message" ng-show="manage.errorMsg">
+  <div class="alert alert-danger"> {{manage.errorMsg}} </div>
+</div>

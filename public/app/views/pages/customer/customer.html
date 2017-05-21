@@ -1,0 +1,59 @@
+<div class="page-header">
+  <h1>History of posts applied</h1>
+</div>
+<div ng-show="customer.pending.length>0">
+  <div class="page-header">
+    <h4 align="center">Posts pending for approval</h4>
+  </div>
+<table class="table table-hover">
+<thead class="thead-default">
+<tr>
+  <th> Name of Post</th>
+  <th> Available Vacancies </th>
+  <th> Description </th>
+</tr>
+</thead>
+<tr ng-repeat="post in customer.pending">
+  <td>{{ post.postname }}</td>
+  <td>{{ post.limit }}</td>
+  <td>{{ post.description }}</td>
+</tr>
+</table>
+</div>
+
+<div ng-show="customer.approved.length>0">
+<div class="page-header">
+  <h4 align="center">Posts approved</h4>
+</div>
+<table class="table table-hover">
+<thead class="thead-default">
+<tr>
+  <th> Name of Post</th>
+  <th> Available Vacancies </th>
+  <th> Description </th>
+</tr>
+</thead>
+<tr ng-repeat="post in customer.approved">
+  <td>{{ post.postname }}</td>
+  <td>{{ post.limit }}</td>
+  <td>{{ post.description }}</td>
+</tr>
+</table>
+</div>
+<div ng-show="customer.rejected.length>0">
+<h4 align="center">Posts Rejected</h4>
+<table class="table table-hover">
+<thead class="thead-default">
+<tr>
+<th> Name of Post</th>
+<th> Available Vacancies </th>
+<th> Description </th>
+</tr>
+</thead>
+<tr ng-repeat="post in customer.rejected">
+<td>{{ post.postname }}</td>
+<td>{{ post.limit }}</td>
+<td>{{ post.description }}</td>
+</tr>
+</table>
+</div>
