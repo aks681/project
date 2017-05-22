@@ -1,7 +1,13 @@
 # Job Application Portal
 webops club application
 
-This is web page for the HR department for a company regarding hiring people for particular posts. Uploading of documents is currently not supported.
+To run this on a localhost, you need to have node.js installed and also node package manager (npm). No need to run npm install, as all the files are already present. 
+
+Then, go into the project folder and just type node server.js in the terminal window in ubuntu to run the site on a localhost. By default, it runs on port 8080. 
+
+You also need to have mongodb installed and have its process running in the background. Just type sudo service mongod start for that.
+
+This is a web page for the HR department for a company regarding hiring people for particular posts. Uploading of documents is currently not supported.
 
 Steps common to both users
 
