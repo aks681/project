@@ -114,7 +114,7 @@ else if(req.body.password==null||req.body.password==''){
   res.json({success: false,message:"Password field is empty"});
 }
 else if(req.body.name==null||req.body.name==''){
-  res.json({success: false,message:"Password field is empty"});
+  res.json({success: false,message:"Name field is empty"});
 }
 else if(req.body.email==null||req.body.email==''){
   res.json({success: false,message:"Email field is empty"});
