@@ -10,6 +10,10 @@ userfactory.getPermission = function(){
    return $http.get('/api/permission/');
 };
 
+userfactory.remove=function(user){
+  return $http.delete('/api/removereject?' + $.param({"id": user.id,"username": user.username}));
+};
+
 userfactory.getUsers = function(){
   return $http.get('/api/management/');
 };

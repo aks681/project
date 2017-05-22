@@ -85,9 +85,6 @@ module.exports = function(router){
                  });
                }
              });
-             /*User.update({"username": username},{"$push": {"pending": post}},function(err){
-               if(err) console.log("Heey1");
-             });*/
            }
        }
        }
@@ -558,6 +555,36 @@ router.delete('/rejectuser',function(req,res){
     }
   });
 });
+
+router.delete('/removereject',function(req,res){
+  var username=req.query.username;
+  var id=req.query.id;
+  User.findOne({username:username},function(err,user){
+    if(err) throw err;
+    if(!user){
+      res.json({success: false, message: "User does not exist"});
+    }
+    else {
+      for(var i=0;i<user.rejected.length;i++)
+      {
+        if(user.rejected[i]==id)
+        {
+          user.rejected.splice(i,1);
+          user.save(function(err){
+            if(err) {
+              res.json({success: false, message: "Could not reject"});
+            }
+            else {
+              res.json({success: true, message: "User removed from rejected list"});
+            }
+          });
+          break;
+        }
+      }
+    }
+  });
+});
+
 router.put('/approveuser',function(req,res){
   var user={},limit;
   user.username=req.body.username;

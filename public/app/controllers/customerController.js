@@ -71,15 +71,19 @@ angular.module("customerController",[])
     });
 
  app.add=function(username,name,id){
-   var object={};
+  var object={};
   object.username=username;
   object.name=name;
   object.id=id;
-  console.log(object);
+  app.error=false;
   Post.addtopost(object).then(function(data){
      if(data.data.success){
        app.success=data.data.message;
-       app.error=false;
+       if(app.rejected.length>0){
+       User.remove(object).then(function(data){
+         console.log(data.data);
+       });
+     }
        $timeout(function(){
          app.success=false;
        },1500);

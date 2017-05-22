@@ -14,6 +14,7 @@ angular.module('postServices',[])
     return $http.put('/api/apply',object);
   };
 
+
   postfactory.deletePost = function(id){
     return $http.delete('/api/management/' + id);
   };

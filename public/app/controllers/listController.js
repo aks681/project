@@ -6,6 +6,7 @@ angular.module("listController",[])
   Post.getP($routeParams.id).then(function(data){
     if(data.data.success){
       app.users=data.data.post.pending;
+      app.appuser=data.data.post.approved;
       app.id=data.data.post._id;
       app.limit=data.data.post.limit;
       app.name=data.data.post.postname;
@@ -52,23 +53,17 @@ app.approveuser=function(username,name){
   object.username=username;
   object.name=name;
   User.approveUser(object).then(function(data){
-    if(data.data.success){
-      app.success=data.data.message;
-    }
-    else {
-      app.error=data.data.message;
-      $timeout(function(){
-        app.error=false;
-      },1200);
-    }
-  });
-  Post.reject(object).then(function(data){
-
+    console.log(data.data);
   });
   Post.approve(object).then(function(data){
    if(data.data.success){
-     app.error=data.data.message;
-     getPosts();
+     app.success=data.data.message;
+     Post.reject(object).then(function(data){
+     });
+     $timeout(function(){
+       getPosts();
+       app.success=false;
+     },700);
    }
    else {
      app.error=data.data.message;
