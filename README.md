@@ -1,4 +1,4 @@
-# project
+# Job Application Portal
 webops club application
 
 This is web page for the HR department for a company regarding hiring people for particular posts. Uploading of documents is currently not supported.
