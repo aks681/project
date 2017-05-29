@@ -1,5 +1,6 @@
 # Job Application Portal
--- shaastra webops club application
+-- Shaastra webops club application
+
 Running the site on a computer is simple enough.
 1.  Clone the repository using url of repository.
 2.  Make sure you have mongodb installed and its service started in the backgroung. Just type sudo service mongod start for that.
