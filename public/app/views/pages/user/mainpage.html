@@ -22,7 +22,7 @@
       <button ng-hide="main.role||main.authorized" ng-click="customer.add(main.username,main.name,post._id);" type="button" class="btn btn-primary" ng-disabled="{{ post.limit }} == 0"> Apply </button>
     </td>
   </tr>
-
+<!--customer.add(main.username,main.name,post._id);-->
 <tr ng-repeat="post in customer.posts" class="alert alert-danger" ng-show="post.limit==0">
   <td>{{ post.postname }}</td>
   <td>{{ post.limit }}</td>

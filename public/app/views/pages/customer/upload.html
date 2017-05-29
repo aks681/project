@@ -1,0 +1,19 @@
+<h2>Upload Documents</h2>
+<h5><br><i> Please join all relevant documents into a single pdf file and upload only one file (less than 10mb)</i></h5>
+<br>
+<form ng-submit="Submit(main.username);">
+  <label class="btn btn-success">Browse Files <input type="file" name="image" file-model="file.upload" ng-disabled="uploading" style="display: none;">
+  </label>
+  <button class="btn btn-primary" ng-disabled="uploading" type="submit">Upload</button>
+</form>
+<br>
+<div ng-show="customer.queuefile">
+ <h6>{{customer.queuefile}} selected</h6>
+</div>
+<br>
+<div class="row show-hide-message" ng-show="customer.error">
+<div class="alert alert-danger"> {{customer.error}} </div>
+</div>
+<div class="row show-hide-message" ng-show="customer.success">
+<div class="alert alert-success"> {{customer.filename}} uploaded </div>
+</div>

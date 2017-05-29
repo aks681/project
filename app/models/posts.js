@@ -11,11 +11,13 @@ var postsSchema = new Schema({
   description: {type: String},
   pending: {type: [[{
                      username: String,
-                     name: String
+                     name: String,
+                     doc: Schema.Types.ObjectId
                    }]]},
   approved: {type: [[{
                      username: String,
-                     name: String
+                     name: String,
+                     doc: Schema.Types.ObjectId
                   }]]}
 });
 

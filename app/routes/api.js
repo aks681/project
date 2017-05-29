@@ -2,9 +2,59 @@ var User=require('../models/user');
 var Post=require('../models/posts');
 var jwt=require('jsonwebtoken');
 var secret = 'awesome';
+var mongoose=require('mongoose');
+var fs=require('fs');
+var Gridfs=require('gridfs-stream');
+mongoose.connect('mongodb://localhost:27017/webapp',function(err){
+  if(err)
+  console.log("Not Connected!!");
+  else {
+    console.log("Connected to mongodb!")
+  }
+});
+var db = mongoose.connection.db;
+var mongoDriver = mongoose.mongo;
+var gfs = new Gridfs(db, mongoDriver);
 //router= export all accessing done to server
 module.exports = function(router){
-  router.post('/post',function(req,res){
+
+  router.post('/uploadfile',function(req, res){
+     var writestream = gfs.createWriteStream({
+      filename: req.body.username + '_' + req.body.id,
+      mode: 'w+',
+      content_type: 'application/pdf',
+      root: 'webapp'
+  });
+  fs.createReadStream('./' + req.body.path).pipe(writestream);
+
+  writestream.on('close', function(file) {
+   fs.unlink('./'+req.body.path, function(err) {
+     if(err) throw err;
+     res.json({success: true, id: file._id});
+   });
+});
+   });
+
+   router.delete('/removefile',function(req, res){
+      gfs.remove({ _id: req.query.username + '_' + req.query.id,
+       root: 'webapp'
+   },function(err){
+     if(err) throw err;
+     res.json({success: true, message: "Post deleted"});
+   });
+  });
+
+  router.get('/download', function(req, res) {
+    console.log(req.query);
+   var readstream = gfs.createReadStream({
+       filename: req.query.username + '_' + req.query.id,
+       root: 'webapp'
+   });
+
+   readstream.pipe(res);
+});
+
+router.post('/post',function(req,res){
     var post=new Post();
     post.postname=req.body.postname;
     post.limit=req.body.limit;
@@ -114,7 +164,7 @@ else if(req.body.password==null||req.body.password==''){
   res.json({success: false,message:"Password field is empty"});
 }
 else if(req.body.name==null||req.body.name==''){
-  res.json({success: false,message:"Name field is empty"});
+  res.json({success: false,message:"Password field is empty"});
 }
 else if(req.body.email==null||req.body.email==''){
   res.json({success: false,message:"Email field is empty"});

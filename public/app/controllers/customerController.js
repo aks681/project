@@ -1,5 +1,5 @@
 angular.module("customerController",[])
-.controller('customerCtrl',function(Post,$timeout,User){
+.controller('customerCtrl',function(Post,$timeout,User,$scope,$location,$routeParams){
   var app=this;
   app.error=false;
   app.disabled= false;
@@ -69,8 +69,39 @@ angular.module("customerController",[])
         app.error=data.data.error;
       }
     });
+    $scope.file = {};
+    $scope.Submit = function(username){
+      $scope.uploading = true;
+      var obj={};
+      User.upload($scope.file).then(function(data){
+        if(data.data.success){
+          $scope.uploading=false;
+          app.success=data.data.message;
+          obj.path=data.data.path;
+          obj.username=username;
+          obj.id=$routeParams.id;
+          console.log(obj);
+          app.filename=data.data.name;
+          User.uploadfile(obj).then(function(data){
+            console.log(data.data);
+          });
+          $scope.file={};
+          $timeout(function(){
+            app.success=false;
+            $location.path('/profile');
+          },1500);
+        }else {
+          $scope.uploading=false;
+          app.error=data.data.message;
+          $scope.file={};
+          $timeout(function(){
+            app.error=false;
+          },1500);
+        }
+      });
+    };
 
- app.add=function(username,name,id){
+  app.add=function(username,name,id){
   var object={};
   object.username=username;
   object.name=name;
@@ -86,6 +117,7 @@ angular.module("customerController",[])
      }
        $timeout(function(){
          app.success=false;
+         $location.path('/upload/' + id);
        },1500);
      }
      else {

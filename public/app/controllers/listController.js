@@ -1,7 +1,21 @@
 angular.module("listController",[])
-.controller('listCtrl',function($routeParams,Post,User,$timeout){
+.controller('listCtrl',function($routeParams,Post,User,$timeout,$scope,$sce){
   var app=this;
   app.error=false;
+  app.username=$routeParams.username;
+  app.postname=$routeParams.name;
+  app.identify=$routeParams.identify;
+  if($routeParams.name){
+    var object={};
+    object.username=app.username;
+    object.id=app.identify;
+    User.download(object).then(function(resp){
+      var file = new Blob([resp.data], {type: 'application/pdf'});
+            var fileURL = URL.createObjectURL(file);
+            $scope.pdfContent = $sce.trustAsResourceUrl(fileURL);
+    });
+  }
+  if($routeParams.id){
  function getPosts(){
   Post.getP($routeParams.id).then(function(data){
     if(data.data.success){
@@ -28,6 +42,7 @@ app.rejectuser=function(username){
   object.username=username;
   User.rejectUser(object).then(function(data){
     if(data.data.success){
+
     }
     else {
     }
@@ -39,10 +54,12 @@ app.rejectuser=function(username){
    }
    else {
      app.error=data.data.message;
-     $timeout(function(){
-       app.error=false;
-     },1200);
    }
+   $timeout(function(){
+     app.error=false;
+   },1200);
+  });
+  User.fileremove(object).then(function(data){
   });
 };
 
@@ -53,7 +70,6 @@ app.approveuser=function(username,name){
   object.username=username;
   object.name=name;
   User.approveUser(object).then(function(data){
-    console.log(data.data);
   });
   Post.approve(object).then(function(data){
    if(data.data.success){
@@ -77,4 +93,5 @@ else {
   app.error="Limit reached";
 }
 };
+}
 });

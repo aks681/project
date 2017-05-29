@@ -29,6 +29,12 @@ var app = angular.module('appRoutes',['ngRoute'])
     controllerAs: 'customer',
     authenticated: true
   })
+  .when('/upload/:id',{
+    templateUrl:'app/views/pages/customer/upload.html',
+    controller: 'customerCtrl',
+    controllerAs: 'customer',
+    authenticated: true
+  })
   .when('/addpost',{
     templateUrl:'app/views/pages/manage/addpost.html',
     controller: 'managementCtrl',
@@ -54,6 +60,13 @@ var app = angular.module('appRoutes',['ngRoute'])
     templateUrl:'app/views/pages/manage/edit.html',
     controller: 'editCtrl',
     controllerAs: 'edit',
+    authenticated: true,
+    permission: ['admin']
+  })
+  .when('/document/:username/:name/:identify',{
+    templateUrl:'app/views/pages/manage/document.html',
+    controller: 'listCtrl',
+    controllerAs: 'list',
     authenticated: true,
     permission: ['admin']
   })
