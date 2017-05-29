@@ -12,7 +12,7 @@ After this, go to http://localhost:8080 in your browser to load the site.
 Working of the webpage:
 
 From the homepage, you can first register yourself by pressing the register button.
-For HR personnel only, you can check the 'Are you an admin?' check box, others leave it be.e 
+For HR personnel only, you can check the 'Are you an admin?' check box, others leave it be.
 Once registered, you can login by clicking the login button.
  
 For applicants:
